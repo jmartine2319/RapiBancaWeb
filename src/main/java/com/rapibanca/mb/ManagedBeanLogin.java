@@ -6,6 +6,9 @@
 
 package com.rapibanca.mb;
 
+import com.informa.dto.ClienteRapibancaDTO;
+import com.rapibanca.bean.IloginBean;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 /**
@@ -14,11 +17,17 @@ import javax.faces.bean.ManagedBean;
  */
 @ManagedBean(name = "login", eager = true)
 public class ManagedBeanLogin {
-    private String idUsuario="hola";
+    @EJB
+    private IloginBean loginBean;
+    private String idUsuario;
     private String password;
     
     public boolean loguearUsuario(){
-        System.out.println("funciono");
+        //System.out.println("funciono");
+        ClienteRapibancaDTO clienteRapibancaDTO = new ClienteRapibancaDTO();
+        clienteRapibancaDTO.setIdUsuario(getIdUsuario());
+        clienteRapibancaDTO.setPassword(getPassword());
+        loginBean.loguearUsuario(clienteRapibancaDTO);
         return true;
     }
 
